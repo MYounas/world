@@ -2,6 +2,8 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\Countries;
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Cities */
@@ -17,7 +19,7 @@ use yii\widgets\ActiveForm;
     <?= $form->field($model, 'ci_description')->textarea(['rows' => 6]) ?>
 
     <?= $form->field($model,'co_id')->dropDownList(
-        \yii\helpers\ArrayHelper::map(\app\models\Countries::find()->all(),'co_id','co_name'),['prompt'=>'Select Country']
+        ArrayHelper::map(Countries::find()->all(),'co_id','co_name'),['prompt'=>'Select Country']
     ) ?>
 
     <div class="form-group">

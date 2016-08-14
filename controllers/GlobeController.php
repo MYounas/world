@@ -8,6 +8,9 @@ use app\models\GlobeSearch;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use app\models\Countries;
+use app\models\Cities;
+use app\models\Areas;
 
 /**
  * GlobeController implements the CRUD actions for Globe model.
@@ -49,6 +52,16 @@ class GlobeController extends Controller
      * @param integer $id
      * @return mixed
      */
+
+    public function actionGetCities($id){
+        return json_encode(Countries::findOne($id)->cities);
+
+//        return Countries::find()->where(['co_id'=>$id])->one()->co_id;
+//        return json_encode(Cities::find()->where(['co_id'=>$id])->one());
+//        return $id;
+    }
+
+
     public function actionView($id)
     {
         return $this->render('view', [

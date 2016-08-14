@@ -2,6 +2,11 @@
 
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
+use yii\helpers\ArrayHelper;
+use app\models\Countries;
+use app\models\Cities;
+use app\models\Areas;
+
 
 /* @var $this yii\web\View */
 /* @var $model app\models\Globe */
@@ -12,18 +17,21 @@ use yii\widgets\ActiveForm;
 
     <?php $form = ActiveForm::begin(); ?>
 
-
-
     <?= $form->field($model,'co_id')->dropDownList(
-        \yii\helpers\ArrayHelper::map(\app\models\Countries::find()->all(),'co_id','co_name'),['prompt'=>'Select Country']
+        ArrayHelper::map(Countries::find()->all(),'co_id','co_name'),[
+            'prompt'=>'Select Country',
+            'onchange'=>'$.post("index.php?r=globe/get-cities&id="+$(this).val(),function(data){
+                                                                                    alert(JSON.parse(data));
+                                                                                    });'
+        ]
     ) ?>
 
     <?= $form->field($model,'ci_id')->dropDownList(
-        \yii\helpers\ArrayHelper::map(\app\models\Cities::find()->all(),'ci_id','ci_name'),['prompt'=>'Select City']
+        ArrayHelper::map(Cities::find()->all(),'ci_id','ci_name'),['prompt'=>'Select City']
     ) ?>
 
     <?= $form->field($model,'a_id')->dropDownList(
-        \yii\helpers\ArrayHelper::map(\app\models\Areas::find()->all(),'a_id','a_name'),['prompt'=>'Select Area']
+        ArrayHelper::map(Areas::find()->all(),'a_id','a_name'),['prompt'=>'Select Area']
     ) ?>
 
     <div class="form-group">
